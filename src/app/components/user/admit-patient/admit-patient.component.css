@@ -1,0 +1,117 @@
+/* Main container below navbar */
+.admitpatient-container {
+  /* side nav or sidebar spacing */
+  margin-top: 56px; /* keeps form just below navbar */
+  padding: 30px;
+  background: linear-gradient(135deg, #f8f9fa, #e8ebf0);
+  min-height: calc(100vh - 56px); /* full screen below navbar */
+  box-sizing: border-box;
+  animation: fadeIn 0.4s ease-in-out;
+  overflow: hidden; /* removes scroll */
+}
+
+/* Hide scrollbar from everything */
+::-webkit-scrollbar {
+  display: none;
+}
+body {
+  overflow: hidden;
+}
+
+/* The form card taking full space inside container */
+.form-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Header */
+.form-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.form-header h2 {
+  color: #1976d2;
+  font-weight: 600;
+}
+
+/* Inputs */
+.form-label {
+  font-weight: 500;
+  color: #0d47a1;
+}
+
+.form-control,
+.form-select,
+textarea {
+  border-radius: 8px;
+  border: 1px solid #90caf9;
+  transition: all 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus,
+textarea:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 6px rgba(25, 118, 210, 0.4);
+}
+
+/* Buttons */
+.btn-custom {
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 10px 25px;
+  transition: all 0.3s ease;
+}
+
+.btn-submit {
+  background-color: #1976d2;
+  color: white;
+}
+
+.btn-edit {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.btn-cancel {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-custom:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* Slight hover animation */
+.form-card:hover {
+  transform: scale(1.002);
+  box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.25);
+}
+
+.row {
+  margin-bottom: 15px;
+}
+
+textarea {
+  resize: none;
+}
+
+/* Smooth fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

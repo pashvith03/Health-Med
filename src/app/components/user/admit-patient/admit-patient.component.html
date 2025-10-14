@@ -1,0 +1,238 @@
+<app-nav-bar></app-nav-bar>
+<div class="admitpatient-container">
+  <div class="form-card full-page-card">
+    <div class="form-header">
+      <h2>Patient Admission Form</h2>
+      <p class="text-muted">Fill all the required details below</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="admitForm">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="pan" class="form-label"
+            >PAN (Patient Admission No.)</label
+          >
+          <input
+            formControlName="pan"
+            type="text"
+            class="form-control"
+            id="pan"
+            name="pan"
+            ngModel
+            placeholder="e.g., PAN12345"
+            required
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="name" class="form-label">Patient Name</label>
+          <input
+            formControlName="name"
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            ngModel
+            placeholder="Enter full name"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-3">
+          <label for="age" class="form-label">Age</label>
+          <input
+            formControlName="age"
+            type="number"
+            class="form-control"
+            id="age"
+            name="age"
+            ngModel
+            min="0"
+            required
+          />
+        </div>
+        <div class="col-md-3">
+          <label for="gender" class="form-label">Gender</label>
+          <select
+            formControlName="gender"
+            id="gender"
+            name="gender"
+            class="form-select"
+            ngModel
+            required
+          >
+            <option selected disabled value="">Choose...</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="bloodGroup" class="form-label">Blood Group</label>
+          <select
+            formControlName="bloodGroup"
+            id="bloodGroup"
+            name="bloodGroup"
+            class="form-select"
+            ngModel
+            required
+          >
+            <option selected disabled value="">Select</option>
+            <option>A+</option>
+            <option>A-</option>
+            <option>B+</option>
+            <option>B-</option>
+            <option>O+</option>
+            <option>O-</option>
+            <option>AB+</option>
+            <option>AB-</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="contact" class="form-label">Contact Number</label>
+          <input
+            formControlName="phone"
+            type="tel"
+            class="form-control"
+            id="contact"
+            name="contact"
+            ngModel
+            pattern="[0-9]{10}"
+            placeholder="10-digit number"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="admitDate" class="form-label">Admit Date</label>
+          <input
+            formControlName="admittedAt"
+            type="date"
+            class="form-control"
+            id="admitDate"
+            name="admitDate"
+            ngModel
+            required
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="careUnit" class="form-label">Care Unit</label>
+          <select
+            formControlName="careUnit"
+            id="careUnit"
+            name="careUnit"
+            class="form-select"
+            ngModel
+            required
+            (change)="onCareUnitChange($event)"
+          >
+            <option *ngFor="let careUnit of careUnits" [value]="careUnit._id">
+              {{ careUnit.careUnit }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="doctor" class="form-label">Assigned Staff</label>
+          <select
+            formControlName="assignedDoctor"
+            class="form-select"
+            id="doctor"
+            name="doctor"
+            ngModel
+            placeholder="Dr. John Doe"
+            required
+          >
+            <option value="" disabled selected>Select Staff</option>
+            <option *ngFor="let staf of staff" [value]="staf._id">
+              {{ staf.firstName }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="careUnit" class="form-label">Bed Name</label>
+          <select
+            formControlName="bed"
+            id="bed"
+            name="bed"
+            class="form-select"
+            ngModel
+            required
+          >
+            <option
+              *ngFor="let bed of bedsArray; let i = index"
+              [value]="bed._id"
+            >
+              {{ bed.name }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="severity" class="form-label">Severity</label>
+          <select
+            formControlName="severity"
+            id="severity"
+            name="severity"
+            class="form-select"
+            ngModel
+            required
+          >
+            <option selected disabled value="">Select</option>
+            <option value="normal">Normal</option>
+            <option value="severe">Severe</option>
+            <option value="critical">Critical</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <textarea
+          formControlName="address"
+          class="form-control"
+          id="address"
+          name="address"
+          rows="2"
+          ngModel
+          placeholder="Enter full address"
+          required
+        ></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="symptoms" class="form-label"
+          >Symptoms / Reason for Admission</label
+        >
+        <textarea
+          formControlName="symptoms"
+          class="form-control"
+          id="symptoms"
+          name="symptoms"
+          rows="2"
+          ngModel
+          placeholder="Enter symptoms or reason"
+          required
+        ></textarea>
+      </div>
+
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-submit btn-custom me-2">
+          Submit
+        </button>
+        <button
+          type="button"
+          class="btn btn-edit btn-custom me-2"
+          (click)="onEdit()"
+        >
+          Edit
+        </button>
+        <button type="reset" class="btn btn-cancel btn-custom">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+<app-sidebar></app-sidebar>
+<div class="staff-container">
+  <button class="create-btn" (click)="openPopup()">Create Staff</button>
+  <div *ngIf="isopen" class="popup-overlay">
+    <div class="popup">
+      <h1 class="popup-title">
+        {{ isEditMode ? "EDIT STAFF" : "CREATE A STAFF" }}
+      </h1>
+      <form
+        [formGroup]="staffForm"
+        class="popup-form"
+        (ngSubmit)="onSubmit()"
+        *ngIf="staffForm"
+      >
+        <label for="firstName" class="popup-label">First Name:</label>
+        <input
+          id="firstName"
+          formControlName="firstName"
+          type="text"
+          class="popup-input"
+        />
+
+        <label for="lastName" class="popup-label">Last Name:</label>
+        <input
+          id="lastName"
+          formControlName="lastName"
+          type="text"
+          class="popup-input"
+        />
+
+        <label for="email" class="popup-label">Email:</label>
+        <input
+          id="email"
+          formControlName="email"
+          type="email"
+          class="popup-input"
+        />
+
+        <label for="phone" class="popup-label">Phone:</label>
+        <input
+          id="phone"
+          formControlName="phone"
+          type="text"
+          class="popup-input"
+        />
+
+        <label for="specialization" class="popup-label">Specialization:</label>
+        <input
+          id="specialization"
+          formControlName="specialization"
+          type="text"
+          class="popup-input"
+        />
+
+        <label for="username" class="popup-label">Username:</label>
+        <input
+          id="username"
+          formControlName="username"
+          type="text"
+          class="popup-input"
+        />
+
+        <label for="password" class="popup-label">Password:</label>
+        <input
+          id="password"
+          formControlName="password"
+          type="password"
+          class="popup-input"
+        />
+        <div class="popup-buttons">
+          <button type="submit" class="popup-submit">
+            {{ isEditMode ? "Update" : "Submit" }}
+          </button>
+          <button type="button" class="popup-cancel" (click)="closePopup()">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="staff-list">
+    <table class="staff-table">
+      <tr>
+        <th>S.No</th>
+        <th>Staff Name</th>
+        <th>Email</th>
+        <th>Specialization</th>
+
+        <th>Actions</th>
+      </tr>
+      <tr *ngFor="let staff of staffArray; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ staff.firstName }} {{ staff.lastName }}</td>
+        <td>{{ staff.email }}</td>
+        <td>{{ staff.specialization }}</td>
+
+        <td class="table-actions">
+          <button class="edit-btn" (click)="onEdit(staff)">EDIT</button>
+          <button class="delete-btn" (click)="onDelete(staff._id)">
+            DELETE
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
