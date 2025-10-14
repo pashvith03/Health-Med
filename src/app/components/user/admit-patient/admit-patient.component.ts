@@ -25,12 +25,6 @@ interface Staff {
   lastName: string;
 }
 
-interface Bed {
-  _id: string;
-  number: string;
-  name: string; // Adding name property to match the template
-}
-
 @Component({
   selector: 'app-admit-patient',
   standalone: true,
@@ -41,7 +35,7 @@ interface Bed {
 export class AdmitPatientComponent implements OnInit {
   careUnits: CareUnit[] = [];
   selectedCareUnit: string = '';
-  bedsArray: Bed[] = [];
+  bedsArray: any[] = [];
   bedId: string = '';
   admitForm: FormGroup;
   staff: Staff[] = [];
@@ -105,44 +99,46 @@ export class AdmitPatientComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.admitForm.invalid) {
-      // Mark all fields as touched to trigger validation display
-      Object.keys(this.admitForm.controls).forEach((key) => {
-        const control = this.admitForm.get(key);
-        control?.markAsTouched();
+    try {
+      // Create a copy of the form values
+      const formValues = { ...this.admitForm.value };
+      console.log('formValues.admittedAt:', formValues.admittedAt);
+
+      // Validate and convert the date
+      const admittedDate = formValues.admittedAt;
+      if (!admittedDate) {
+        throw new Error('Admission date is required');
+      }
+
+      // Create the final patient data object
+      const patientData = {
+        ...formValues,
+        admittedAt: new Date(admittedDate).toISOString(),
+      };
+      console.log('Form submitted:', this.admitForm.value);
+
+      this.patientService.createPatient(patientData).subscribe({
+        next: (res: any) => {
+          console.log('Patient admitted successfully:', res);
+          this.admitForm.reset();
+          // TODO: Add success message or redirect
+        },
+        error: (err: any) => {
+          console.error('Error admitting patient:', err);
+          // TODO: Add error handling UI feedback
+        },
       });
-      return;
+    } catch (error) {
+      console.error('Date conversion error:', error);
+      // TODO: Show user-friendly error message
     }
-
-    const admitFormValue = this.admitForm.value;
-    const admittedDate = new Date(admitFormValue.admittedAt);
-
-    const patientData = {
-      ...admitFormValue,
-      admittedAt: admittedDate.toISOString(),
-      careUnit: this.selectedCareUnit,
-      assignedDoctor: this.selectedStaff,
-      bed: this.bedId,
-    };
-
-    this.patientService.createPatient(patientData).subscribe({
-      next: (res: any) => {
-        console.log('Patient admitted successfully:', res);
-        this.admitForm.reset();
-        // TODO: Add success message or redirect
-      },
-      error: (err: any) => {
-        console.error('Error admitting patient:', err);
-        // TODO: Add error handling UI feedback
-      },
-    });
   }
 
   private loadBeds(careUnitId: string): void {
     if (!careUnitId) return;
 
     this.bedService.getAllBeds(careUnitId).subscribe({
-      next: (res: Bed[]) => {
+      next: (res: any[]) => {
         this.bedsArray = res;
         this.bedId = '';
         this.admitForm.patchValue({ bed: '' });

@@ -18,7 +18,6 @@
             class="form-control"
             id="pan"
             name="pan"
-            ngModel
             placeholder="e.g., PAN12345"
             required
           />
@@ -31,7 +30,6 @@
             class="form-control"
             id="name"
             name="name"
-            ngModel
             placeholder="Enter full name"
             required
           />
@@ -47,7 +45,6 @@
             class="form-control"
             id="age"
             name="age"
-            ngModel
             min="0"
             required
           />
@@ -59,7 +56,6 @@
             id="gender"
             name="gender"
             class="form-select"
-            ngModel
             required
           >
             <option selected disabled value="">Choose...</option>
@@ -75,7 +71,6 @@
             id="bloodGroup"
             name="bloodGroup"
             class="form-select"
-            ngModel
             required
           >
             <option selected disabled value="">Select</option>
@@ -97,7 +92,6 @@
             class="form-control"
             id="contact"
             name="contact"
-            ngModel
             pattern="[0-9]{10}"
             placeholder="10-digit number"
             required
@@ -114,7 +108,6 @@
             class="form-control"
             id="admitDate"
             name="admitDate"
-            ngModel
             required
           />
         </div>
@@ -125,7 +118,6 @@
             id="careUnit"
             name="careUnit"
             class="form-select"
-            ngModel
             required
             (change)="onCareUnitChange($event)"
           >
@@ -144,7 +136,6 @@
             class="form-select"
             id="doctor"
             name="doctor"
-            ngModel
             placeholder="Dr. John Doe"
             required
           >
@@ -161,14 +152,13 @@
             id="bed"
             name="bed"
             class="form-select"
-            ngModel
             required
           >
             <option
               *ngFor="let bed of bedsArray; let i = index"
               [value]="bed._id"
             >
-              {{ bed.name }}
+              {{ bed.bedName }}
             </option>
           </select>
         </div>
@@ -179,7 +169,6 @@
             id="severity"
             name="severity"
             class="form-select"
-            ngModel
             required
           >
             <option selected disabled value="">Select</option>
@@ -198,7 +187,6 @@
           id="address"
           name="address"
           rows="2"
-          ngModel
           placeholder="Enter full address"
           required
         ></textarea>
@@ -214,7 +202,6 @@
           id="symptoms"
           name="symptoms"
           rows="2"
-          ngModel
           placeholder="Enter symptoms or reason"
           required
         ></textarea>

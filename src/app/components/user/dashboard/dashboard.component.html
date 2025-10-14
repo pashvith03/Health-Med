@@ -4,9 +4,15 @@
   <!-- Filter Dropdown -->
   <div class="filter-container">
     <label for="careUnit">Care Unit:</label>
-    <select id="careUnit" [(ngModel)]="selectedUnit" (change)="filterPatients()">
+    <select
+      id="careUnit"
+      [(ngModel)]="selectedUnit"
+      (change)="getPatientsByCUID()"
+    >
       <option value="">-- Select Care Unit --</option>
-      <option *ngFor="let unit of careUnits" [value]="unit">{{ unit }}</option>
+      <option *ngFor="let unit of careUnits" [value]="unit._id">
+        {{ unit.careUnit }}
+      </option>
     </select>
   </div>
 
