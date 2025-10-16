@@ -6,10 +6,10 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+  Validators} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CareunitServiceService } from '../../../service/careunit-service.service';
+import { IconDirective } from '../../../icon.directive';
 interface CareUnit {
   name: string;
   type: string;
@@ -22,7 +22,7 @@ interface Fluid {
 @Component({
   selector: 'app-careunit',
   standalone: true,
-  imports: [SidebarComponent, ReactiveFormsModule, FormsModule, CommonModule],
+  imports: [SidebarComponent, ReactiveFormsModule, FormsModule, CommonModule,IconDirective],
   templateUrl: './careunit.component.html',
   styleUrl: './careunit.component.css',
 })

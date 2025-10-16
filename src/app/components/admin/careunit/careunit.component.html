@@ -1,6 +1,7 @@
 <app-sidebar></app-sidebar>
 <div class="careunit-container">
   <button class="create-btn" (click)="openPopup()">Create Care Units</button>
+
   <div *ngIf="isopen" class="popup-overlay">
     <div class="popup">
       <h1 class="popup-title">
@@ -32,22 +33,28 @@
 
   <div class="careunit-list">
     <table class="careunit-table">
-      <tr>
-        <th>S.No</th>
-        <th>Care Unit Name</th>
-        <th>Actions</th>
-      </tr>
-      <tr *ngFor="let careunit of careunitsArray; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ careunit.careUnit }}</td>
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Care Unit Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let careunit of careunitsArray; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ careunit.careUnit }}</td>
+          <td class="table-actions">
+            <button class="edit-btn" (click)="onEdit(careunit)" [appIcon]="'edit'">
+              EDIT
+            </button>
 
-        <td class="table-actions">
-          <button class="edit-btn" (click)="onEdit(careunit)">EDIT</button>
-          <button class="delete-btn" (click)="onDelete(careunit._id)">
-            DELETE
-          </button>
-        </td>
-      </tr>
+            <button class="delete-btn" (click)="onDelete(careunit._id)" [appIcon]="'delete'">
+              DELETE
+            </button>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
-</div>
+</div>\3

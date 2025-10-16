@@ -21,13 +21,13 @@
     <div
       *ngFor="let patient of filteredPatients; let i = index"
       class="patient-card"
-      [ngClass]="patient.careUnit.replace(' ', '')"
+
       [style.animationDelay]="i * 0.1 + 's'"
     >
       <!-- Card Header with Bed Name -->
-      <div class="card-header">
+      <div class="card-header" routerLin>
         <span class="card-title">Bed: {{ patient.bedName }}</span>
-        <span class="card-arrow">→</span>
+        <span class="card-arrow" [routerLink]="['/user-flow-sheet', patient.id]" >→</span>
       
       <hr />
       <!-- Card Body -->

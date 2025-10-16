@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { NavBarComponent } from '../../nav-bar/nav-bar.component';
 import { CareunitServiceService } from '../../../service/careunit-service.service';
 import { PatientservieceService } from '../../../service/patientserviece.service';
-import { RouterModule } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NavBarComponent, FormsModule, CommonModule,RouterModule],
+  imports: [NavBarComponent, FormsModule, CommonModule,RouterModule,RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
