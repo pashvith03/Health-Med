@@ -1,0 +1,85 @@
+<app-sidebar></app-sidebar>
+
+<div class="fluid-container">
+  <div class="page-header">
+    <h2 class="section-title">Medications Assigned to Care Units</h2>
+    <select
+      id="bedType"
+      class="popup-input"
+      style="margin-bottom: 20px"
+      (change)="onCareUnitChange($event)"
+    >
+      <option *ngFor="let careUnit of careUnit" [value]="careUnit._id">
+        {{ careUnit.careUnit }}
+      </option>
+    </select>
+    <button class="create-btn" (click)="openMedicationPopup()">
+      ➕ Add Medication
+    </button>
+  </div>
+  <div class="list-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Medication Name</th>
+          <!-- <th>Care Unit Name</th> -->
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let medication of medicationsArray; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ medication.medicationName }}</td>
+          <!-- <td>{{ medication.careUnitName }}</td> -->
+          <td class="table-actions">
+            <button class="edit-btn" (click)="onEdit(medication)">EDIT</button>
+            <button class="delete-btn" (click)="onDelete(medication)">
+              DELETE
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="medicationsArray.length === 0">
+          <td colspan="4" class="empty-table-msg">
+            No medications have been added yet.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="isMedicationOpen" class="popup-overlay">
+  <div class="popup">
+    <h1 class="popup-title">
+      {{ isEditMode ? "Edit Medication" : "Add Medication & Assign Care Unit" }}
+    </h1>
+    <form
+      [formGroup]="medicationForm"
+      class="popup-form"
+      (ngSubmit)="onMedicationSubmit()"
+    >
+      <label for="medicationName" class="popup-label">Medication Name</label>
+      <input
+        id="medicationName"
+        formControlName="medicationName"
+        type="text"
+        class="popup-input"
+        placeholder="e.g., Aspirin"
+      />
+
+      <div class="popup-buttons">
+        <button
+          type="button"
+          class="popup-cancel"
+          (click)="closeMedicationPopup()"
+        >
+          Cancel
+        </button>
+        <button type="submit" class="popup-submit">
+          {{ isEditMode ? "Update" : "Submit" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

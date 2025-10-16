@@ -1,0 +1,101 @@
+<app-sidebar></app-sidebar>
+
+<div class="hospital-container">
+  <div *ngIf="droppedImage" class="image-display-section">
+    <div class="image-header">
+      <h2>Hospital Logo</h2>
+      <button
+        class="btn-remove"
+        (click)="removeImage()"
+        [disabled]="isUploading"
+        aria-label="Remove logo"
+      >
+        <span class="icon">🗑️</span>
+        <span>Remove</span>
+      </button>
+    </div>
+    <div class="image-container" [class.uploading]="isUploading">
+      <div class="image-wrapper">
+        <div
+          class="debug-info"
+          style="font-size: 12px; margin-bottom: 8px; color: #666"
+        ></div>
+        <img
+          [src]="droppedImage"
+          [attr.crossorigin]="'anonymous'"
+          alt="Hospital Logo"
+          class="dropped-image"
+          (error)="handleImageError()"
+          (load)="handleImageLoad($event)"
+          [class.image-loaded]="imageLoaded"
+          style="max-width: 300px; height: auto; object-fit: contain"
+        />
+        <div *ngIf="!imageLoaded && !isUploading" class="image-placeholder">
+          Loading image...
+        </div>
+      </div>
+      <div *ngIf="isUploading" class="upload-overlay" role="status">
+        <div class="spinner"></div>
+        <div class="upload-text">
+          <div class="upload-status">{{ uploadProgress }}%</div>
+          <div>
+            {{ uploadProgress === 100 ? "Processing..." : "Uploading..." }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="image-info" *ngIf="imageInfo">
+      <span class="info-item">
+        <span class="info-label">Size:</span>
+        <span class="info-value">{{ imageInfo.size }}</span>
+      </span>
+      <span class="info-item">
+        <span class="info-label">Type:</span>
+        <span class="info-value">{{ imageInfo.type }}</span>
+      </span>
+      <span class="info-item">
+        <span class="info-label">Dimensions:</span>
+        <span class="info-value"
+          >{{ imageInfo.width }}x{{ imageInfo.height }}px</span
+        >
+      </span>
+    </div>
+  </div>
+  <div class="drag-drop-section" *ngIf="!droppedImage || !isUploading">
+    <div
+      class="drag-drop-box"
+      [class.drag-over]="isDragOver"
+      [class.disabled]="isUploading"
+      (drop)="onDrop($event)"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      role="region"
+      aria-label="Logo upload area"
+    >
+      <div class="drag-drop-content">
+        <div class="drag-icon" aria-hidden="true">📁</div>
+        <h3>Drag & Drop your logo here</h3>
+        <p>or use the browse button below</p>
+        <div class="drag-features">
+          <span class="feature" role="note">
+            <span aria-hidden="true">📱</span>
+            Supports all image formats
+          </span>
+          <span class="feature" role="note">
+            <span aria-hidden="true">⚡</span>
+            Max 15MB file size
+          </span>
+        </div>
+        <button
+          class="browse-btn"
+          (click)="onBrowseClick()"
+          [disabled]="isUploading"
+          aria-label="Browse for logo image"
+        >
+          <span aria-hidden="true">📂</span>
+          Browse Images
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
